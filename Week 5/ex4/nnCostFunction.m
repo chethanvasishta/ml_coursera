@@ -96,7 +96,7 @@ for i=1:m, % for each example
 	
 	% we usually don't compute error at input layer
 	Theta2_grad = Theta2_grad + delta_3 * a_2';
-	Theta1_grad = Theta1_grad + delta_2 * a_1';	
+	Theta1_grad = Theta1_grad + delta_2 * a_1;	
 	
 end; % each example
 J = J/m;
@@ -105,9 +105,9 @@ theta1_sum = sum((Theta1(:,2:end).*Theta1(:,2:end))(:)); % skip bias parameter
 theta2_sum = sum((Theta2(:,2:end).*Theta2(:,2:end))(:)); % skip bias parameter
 J = J + (lambda * (theta1_sum + theta2_sum)/(2*m));
 
-% Divide by m
-Theta1_grad = Theta1_grad/m;
-Theta2_grad = Theta2_grad/m;
+% Divide by m and add (lambda * Theta /m )
+Theta1_grad = Theta1_grad/m + (lambda * [zeros(size(Theta1,1),1) Theta1(:, 2:end)])/m ;
+Theta2_grad = Theta2_grad/m + (lambda * [zeros(size(Theta2,1),1) Theta2(:, 2:end)])/m;
 
 % -------------------------------------------------------------
 
