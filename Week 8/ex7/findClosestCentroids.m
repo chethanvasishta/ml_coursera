@@ -21,65 +21,15 @@ idx = zeros(size(X,1), 1);
 % Note: You can use a for-loop over the examples to compute this.
 %
 
-%hold off;
-%plot(X(:,1),X(:,2),'+');
-%hold on;
-%plot(centroids(:,1), centroids(:,2), '*', 'markersize',10);
-%pause;
-
 m = size(X,1);
-numIter = 5;
 tempK = size(centroids, 1);
-for iter=1:numIter,
-	oldIdx = idx;
-	for i=1:m, % for each example
-		x = X(i,:);
-		for j=1:K, % for each mean point
-			tempK(j) = sum((x - centroids(j,:)).^2);
-		end;
-		[min_val, min_idx] = min(tempK);
-		idx(i) = min_idx;
+for i=1:m, % for each example
+	x = X(i,:);
+	for j=1:K, % for each mean point
+		tempK(j) = sum((x - centroids(j,:)).^2);
 	end;
-			
-	% assign average of points to centroids
-	centroidSum = zeros(size(centroids));
-	groupCount = zeros(size(centroids, 1));
-	for i=1:m, % for each example			
-		centroidSum(idx(i),:) = centroidSum(idx(i),:) + X(i,:);
-		groupCount(idx(i)) += 1;
-	end;
-	
-	for i=1:K,
-		centroidSum(i) = centroidSum(i)/groupCount(i);
-	end;
-	
-	group1 = [0 0];
-	group2 = [0 0];
-	group3 = [0 0];
-	for i=1:m, % for each example			
-		if (idx(i) == 1)
-			group1 = [group1 ; X(i,:)];
-		elseif (idx(i) == 2)
-			group2 = [group2 ; X(i,:)];
-		else
-			group3 = [group3 ; X(i,:)];
-		endif
-	end;
-	
-	
-	hold off;
-	%plot(X(:,1),X(:,2),'+');
-	plot(group1(:,1),group1(:,2),'+');
-	hold on;
-	plot(group2(:,1),group2(:,2),'p');
-	hold on;
-	plot(group3(:,1),group3(:,2),'s');
-	hold on;
-	plot(centroids(:,1), centroids(:,2), '*', 'markersize',10);
-	
-	fprintf('%d ', iter);
-	
-	pause;
+	[min_val, min_idx] = min(tempK);
+	idx(i) = min_idx;
 end;
 
 % =============================================================
