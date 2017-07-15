@@ -47,12 +47,11 @@ x = zeros(n, 1);
 %              x = [ 0 0 0 0 1 0 0 0 ... 0 0 0 0 1 ... 0 0 0 1 0 ..];
 %
 %
-
-
-
-
-
-
+numWords = length(word_indices);
+for i=1:numWords,
+	index = word_indices(i);
+	x(index) = 1;
+end;
 
 
 % =========================================================================
