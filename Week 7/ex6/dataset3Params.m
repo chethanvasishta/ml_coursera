@@ -29,7 +29,7 @@ error = Inf;
 for i = 1:numValues,
 	tempC = possibleValues(i);
 	for j = 1:numValues,
-		tempSigma = possibleValues(i);
+		tempSigma = possibleValues(j);
 		model= svmTrain(X, y, tempC, @(x1, x2) gaussianKernel(x1, x2, tempSigma));
 		yPredict = svmPredict(model, Xval);
 		tempError = mean(double(yPredict ~= yval));
